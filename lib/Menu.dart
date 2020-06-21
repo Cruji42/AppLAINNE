@@ -1,13 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import './Login.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:adobe_xd/specific_rect_clip.dart';
 import 'package:adobe_xd/page_link.dart';
 import './VistaPostre.dart';
 
-class Menu extends StatelessWidget {
-  Menu({
+
+class Menu extends StatefulWidget {
+  @override
+  _MenuState createState() => _MenuState();
+}
+  class _MenuState extends State<Menu> {
+
+  SharedPreferences sharedPreferences;
+
+  @override
+  void initState() {
+  super.initState();
+  checkLoginStatus();
+  }
+
+  checkLoginStatus() async {
+  sharedPreferences = await SharedPreferences.getInstance();
+  if(sharedPreferences.getString("token") == null) {
+  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Login()), (Route<dynamic> route) => false);
+  }
+  }
+ /* Menu({
     Key key,
-  }) : super(key: key);
+  }) : super(key: key);*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -443,7 +465,7 @@ class Menu extends StatelessWidget {
             offset: Offset(173.0, 9.0),
             child: SizedBox(
               width: 68.0,
-              child: Text(
+              child: /*Text(
                 'INICIO',
                 style: TextStyle(
                   fontFamily: 'Segoe UI',
@@ -451,6 +473,14 @@ class Menu extends StatelessWidget {
                   color: const Color(0xffffffff),
                 ),
                 textAlign: TextAlign.center,
+              ),*/
+              FlatButton(
+                onPressed: () {
+                  sharedPreferences.clear();
+//                  sharedPreferences.commit();
+                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Login()), (Route<dynamic> route) => false);
+                },
+                child: Text("Log Out", style: TextStyle(color: Colors.white)),
               ),
             ),
           ),
@@ -464,3 +494,47 @@ const String _svg_2817to =
     '<svg viewBox="43.5 114.5 40.0 1.0" ><path transform="translate(43.5, 114.5)" d="M 0 0 L 40 0" fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="4" stroke-linecap="butt" /></svg>';
 const String _svg_iondcw =
     '<svg viewBox="122.5 224.5 170.0 208.0" ><path transform="translate(122.5, 224.5)" d="M 0 0 L 170 0" fill="none" stroke="#e47c6e" stroke-width="1" stroke-miterlimit="4" stroke-linecap="butt" /><path transform="translate(122.5, 432.5)" d="M 0 0 L 170 0" fill="none" stroke="#e47c6e" stroke-width="1" stroke-miterlimit="4" stroke-linecap="butt" /></svg>';
+
+/*class Menu extends StatefulWidget {
+  @override
+  _MenuState createState() => _MenuState();
+}
+
+class _MenuState extends State<Menu> {
+
+  SharedPreferences sharedPreferences;
+
+  @override
+  void initState() {
+    super.initState();
+    checkLoginStatus();
+  }
+
+  checkLoginStatus() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    if(sharedPreferences.getString("token") == null) {
+      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Login()), (Route<dynamic> route) => false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Login", style: TextStyle(color: Colors.white)),
+        actions: <Widget>[
+          FlatButton(
+            onPressed: () {
+              sharedPreferences.clear();
+              sharedPreferences.commit();
+              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Login()), (Route<dynamic> route) => false);
+            },
+            child: Text("Log Out", style: TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
+      body: Center(child: Text("Main Page")),
+      drawer: Drawer(),
+    );
+  }
+}*/
