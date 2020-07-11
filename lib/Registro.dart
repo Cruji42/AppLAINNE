@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:adobe_xd/specific_rect_clip.dart';
 import 'package:adobe_xd/page_link.dart';
 import './Login.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Registro extends StatelessWidget {
   Registro({
     Key key,
   }) : super(key: key);
+
+  final TextEditingController NameController = new TextEditingController();
+  final TextEditingController LastNameController = new TextEditingController();
+  final TextEditingController TelephoneController = new TextEditingController();
+  final TextEditingController AddressController = new TextEditingController();
+  final TextEditingController CityController = new TextEditingController();
+  final TextEditingController EmailController = new TextEditingController();
+  final TextEditingController PasswordController = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,83 +37,116 @@ class Registro extends StatelessWidget {
             ),
           ),
           Transform.translate(
-            offset: Offset(20.5, 112.0),
-            child:
-                // Adobe XD layer: 'Login Field' (none)
-                SpecificRectClip(
-              rect: Rect.fromLTWH(0, 0, 373, 506),
-              child: UnconstrainedBox(
-                alignment: Alignment.topLeft,
-                child: Container(
-                  width: 373,
-                  height: 492,
-                  child: GridView.count(
-                    primary: false,
-                    padding: EdgeInsets.all(0),
-                    mainAxisSpacing: 20,
-                    crossAxisSpacing: 20,
-                    crossAxisCount: 1,
-                    childAspectRatio: 8.4773,
-                    children: [
-                      {
-                        'text': 'Nombre:',
-                      },
-                      {
-                        'text': 'Apellidos:',
-                      },
-                      {
-                        'text': 'Teléfono:',
-                      },
-                      {
-                        'text': 'Dirección:',
-                      },
-                      {
-                        'text': 'Localidad:',
-                      },
-                      {
-                        'text': 'Correo:',
-                      },
-                      {
-                        'text': 'Contraseña:',
-                      },
-                      {
-                        'text': 'Verificar Contraseña:',
-                      },
-                    ].map((map) {
-                      final text = map['text'];
-                      return Transform.translate(
-                        offset: Offset(-20.5, -235.0),
-                        child:
-                            // Adobe XD layer: 'Login Field' (group)
-                            Stack(
-                          children: <Widget>[
-                            Transform.translate(
-                              offset: Offset(31.0, 235.0),
-                              child: Text(
-                                text,
-                                style: TextStyle(
-                                  fontFamily: 'Segoe UI',
-                                  fontSize: 20,
-                                  color: const Color(0xbf707070),
-                                ),
-                                textAlign: TextAlign.left,
-                              ),
-                            ),
-                            Transform.translate(
-                              offset: Offset(20.5, 278.5),
-                              child: SvgPicture.string(
-                                _svg_m0fnet,
-                                allowDrawingOutsideViewBox: true,
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                ),
-              ),
-            ),
+            offset: Offset(0.0, 120.0),
+      child: TextField(
+      controller: NameController,
+      autocorrect: true,
+      decoration: InputDecoration(
+        hintText: 'Nombre: ',
+        hintStyle: TextStyle(color: Colors.grey),
+        filled: true,
+        fillColor: Colors.white70,
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.pink),
+        ),
+      ),
+    )
+          ),
+          Transform.translate(
+            offset: Offset(0.0, 190.0),
+      child: TextField(
+      controller: LastNameController,
+      autocorrect: true,
+      decoration: InputDecoration(
+        hintText: 'Apellido: ',
+        hintStyle: TextStyle(color: Colors.grey),
+        filled: true,
+        fillColor: Colors.white70,
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.pink),
+        ),
+      ),
+    )
+          ),
+          Transform.translate(
+            offset: Offset(0.0, 260.0),
+      child: TextField(
+      controller: TelephoneController,
+      autocorrect: true,
+      decoration: InputDecoration(
+        hintText: 'Telefono: ',
+        hintStyle: TextStyle(color: Colors.grey),
+        filled: true,
+        fillColor: Colors.white70,
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.pink),
+        ),
+      ),
+    )
+          ),
+          Transform.translate(
+            offset: Offset(0.0, 330.0),
+      child: TextField(
+      controller: AddressController,
+      autocorrect: true,
+      decoration: InputDecoration(
+        hintText: 'Dirección: ',
+        hintStyle: TextStyle(color: Colors.grey),
+        filled: true,
+        fillColor: Colors.white70,
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.pink),
+        ),
+      ),
+    )
+          ),
+          Transform.translate(
+            offset: Offset(0.0, 400.0),
+      child: TextField(
+      controller: CityController,
+      autocorrect: true,
+      decoration: InputDecoration(
+        hintText: 'Ciudad: ',
+        hintStyle: TextStyle(color: Colors.grey),
+        filled: true,
+        fillColor: Colors.white70,
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.pink),
+        ),
+      ),
+    )
+          ),
+          Transform.translate(
+            offset: Offset(0.0, 470.0),
+      child: TextField(
+      controller: EmailController,
+      autocorrect: true,
+      decoration: InputDecoration(
+        hintText: 'Correo: ',
+        hintStyle: TextStyle(color: Colors.grey),
+        filled: true,
+        fillColor: Colors.white70,
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.pink),
+        ),
+      ),
+    )
+          ),
+          Transform.translate(
+            offset: Offset(0.0, 540.0),
+      child: TextField(
+      controller: PasswordController,
+      autocorrect: true,
+      decoration: InputDecoration(
+        hintText: 'Contraseña: ',
+        hintStyle: TextStyle(color: Colors.grey),
+        filled: true,
+        fillColor: Colors.white70,
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.pink),
+        ),
+      ),
+    )
           ),
           Transform.translate(
             offset: Offset(0.0, 203.0),
@@ -118,29 +161,26 @@ class Registro extends StatelessWidget {
               ],
               child: Stack(
                 children: <Widget>[
-                  Transform.translate(
-                    offset: Offset(20.0, 448.0),
-                    child: Container(
-                      width: 374.0,
-                      height: 66.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15.0),
-                        color: const Color(0xffe47c6e),
+                  Positioned(
+                    top: 450.0,
+                    right: 50.0,
+                    left: 50.0,
+                    child:Container(
+                      margin: const EdgeInsets.all(10.0),
+                      width: 260.0,
+                      height: 50.0,
+                      child: RaisedButton(
+                          onPressed: (){
+                            signUp( NameController.text, LastNameController.text,
+                            TelephoneController.text, AddressController.text,
+                            CityController.text, EmailController.text, PasswordController.text);
+                          },
+                          color: const Color(0xffe47c6e),
+                          child: Text("Registrar", style: TextStyle(color: Colors.white)),
+                          shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
                       ),
                     ),
-                  ),
-                  Transform.translate(
-                    offset: Offset(180.0, 467.0),
-                    child: Text(
-                      'Registrar',
-                      style: TextStyle(
-                        fontFamily: 'Segoe UI',
-                        fontSize: 21,
-                        color: const Color(0xffffffff),
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
+                  )
                 ],
               ),
             ),
@@ -155,6 +195,21 @@ class Registro extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  signUp(String name, lastName, telephone, address, city, email, password) async {
+     await http.post("http://192.168.1.77/LAINNEc/Add_User.php",
+        body: jsonEncode(<String, String>
+        {
+          "nombre": name,
+          "apellido": lastName,
+          "telefono": telephone,
+          "direccion": address,
+          "ciudad": city,
+          "correo": email,
+          "contrasena": password
+        }
+        ));
   }
 }
 
