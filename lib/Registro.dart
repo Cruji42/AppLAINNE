@@ -4,7 +4,7 @@ import 'package:adobe_xd/page_link.dart';
 import './Login.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+import 'utils.dart';
 class Registro extends StatelessWidget {
   Registro({
     Key key,
@@ -22,194 +22,226 @@ class Registro extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffffffff),
-      body: Stack(
+      body: ListView(
         children: <Widget>[
-          Transform.translate(
-            offset: Offset(135.0, 39.0),
-            child: Text(
-              'Registrar',
-              style: TextStyle(
-                fontFamily: 'Segoe UI',
-                fontSize: 37,
-                color: const Color(0xffe47c6e),
-              ),
-              textAlign: TextAlign.left,
-            ),
-          ),
-          Transform.translate(
-            offset: Offset(0.0, 120.0),
-      child: TextField(
-      controller: NameController,
-      autocorrect: true,
-      decoration: InputDecoration(
-        hintText: 'Nombre: ',
-        hintStyle: TextStyle(color: Colors.grey),
-        filled: true,
-        fillColor: Colors.white70,
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.pink),
-        ),
-      ),
-    )
-          ),
-          Transform.translate(
-            offset: Offset(0.0, 190.0),
-      child: TextField(
-      controller: LastNameController,
-      autocorrect: true,
-      decoration: InputDecoration(
-        hintText: 'Apellido: ',
-        hintStyle: TextStyle(color: Colors.grey),
-        filled: true,
-        fillColor: Colors.white70,
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.pink),
-        ),
-      ),
-    )
-          ),
-          Transform.translate(
-            offset: Offset(0.0, 260.0),
-      child: TextField(
-      controller: TelephoneController,
-      autocorrect: true,
-      decoration: InputDecoration(
-        hintText: 'Telefono: ',
-        hintStyle: TextStyle(color: Colors.grey),
-        filled: true,
-        fillColor: Colors.white70,
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.pink),
-        ),
-      ),
-    )
-          ),
-          Transform.translate(
-            offset: Offset(0.0, 330.0),
-      child: TextField(
-      controller: AddressController,
-      autocorrect: true,
-      decoration: InputDecoration(
-        hintText: 'Dirección: ',
-        hintStyle: TextStyle(color: Colors.grey),
-        filled: true,
-        fillColor: Colors.white70,
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.pink),
-        ),
-      ),
-    )
-          ),
-          Transform.translate(
-            offset: Offset(0.0, 400.0),
-      child: TextField(
-      controller: CityController,
-      autocorrect: true,
-      decoration: InputDecoration(
-        hintText: 'Ciudad: ',
-        hintStyle: TextStyle(color: Colors.grey),
-        filled: true,
-        fillColor: Colors.white70,
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.pink),
-        ),
-      ),
-    )
-          ),
-          Transform.translate(
-            offset: Offset(0.0, 470.0),
-      child: TextField(
-      controller: EmailController,
-      autocorrect: true,
-      decoration: InputDecoration(
-        hintText: 'Correo: ',
-        hintStyle: TextStyle(color: Colors.grey),
-        filled: true,
-        fillColor: Colors.white70,
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.pink),
-        ),
-      ),
-    )
-          ),
-          Transform.translate(
-            offset: Offset(0.0, 540.0),
-      child: TextField(
-      controller: PasswordController,
-      autocorrect: true,
-      decoration: InputDecoration(
-        hintText: 'Contraseña: ',
-        hintStyle: TextStyle(color: Colors.grey),
-        filled: true,
-        fillColor: Colors.white70,
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.pink),
-        ),
-      ),
-    )
-          ),
-          Transform.translate(
-            offset: Offset(0.0, 203.0),
-            child: PageLink(
-              links: [
-                PageLinkInfo(
-                  transition: LinkTransition.Fade,
-                  ease: Curves.easeOut,
-                  duration: 0.3,
-                  pageBuilder: () => Login(),
+          Container(
+            child: Column(
+              children: <Widget>[
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                      padding: EdgeInsets.only(right: 120, left: 120, top: 20),
+                      child: Text("REGISTRO", style: TextStyle(
+                        fontSize: 30,
+                        color: Colors.pinkAccent
+                      )
+                      )
+                  ),
                 ),
-              ],
-              child: Stack(
-                children: <Widget>[
-                  Positioned(
-                    top: 450.0,
-                    right: 50.0,
-                    left: 50.0,
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                      padding: EdgeInsets.only(left: 10, top: 10),
+                      child: TextField(
+                        controller: NameController,
+                        minLines: 1,
+                        maxLines: 10,
+                        maxLengthEnforced: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Nombre',
+                          hintText: "Ingresa tu nombre",
+                        ),
+                      ),
+                  ),
+                ),   Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                      padding: EdgeInsets.only(left: 10, top: 10),
+                      child: TextField(
+                        controller: LastNameController,
+                        minLines: 1,
+                        maxLines: 10,
+                        maxLengthEnforced: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Apellido',
+                          hintText: "Ingresa tu nombre",
+                        ),
+                      ),
+                  ),
+                ),   Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                      padding: EdgeInsets.only(left: 10, top: 10),
+                      child: TextField(
+                        controller: TelephoneController,
+                        minLines: 1,
+                        maxLines: 10,
+                        maxLengthEnforced: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Telefono',
+                          hintText: "Ingresa tu nombre",
+                        ),
+                      ),
+                  ),
+                ),   Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                      padding: EdgeInsets.only(left: 10, top: 10),
+                      child: TextField(
+                        controller: AddressController,
+                        minLines: 1,
+                        maxLines: 10,
+                        maxLengthEnforced: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Dirección',
+                          hintText: "Ingresa tu nombre",
+                        ),
+                      ),
+                  ),
+                ),   Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                      padding: EdgeInsets.only(left: 10, top: 10),
+                      child: TextField(
+                        controller: CityController,
+                        minLines: 1,
+                        maxLines: 10,
+                        maxLengthEnforced: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Ciudad',
+                          hintText: "Ingresa tu nombre",
+                        ),
+                      ),
+                  ),
+                ),   Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                      padding: EdgeInsets.only(left: 10, top: 10),
+                      child: TextField(
+                        controller: EmailController,
+                        minLines: 1,
+                        maxLines: 10,
+                        maxLengthEnforced: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Correo',
+                          hintText: "Ingresa tu nombre",
+                        ),
+                      ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                      padding: EdgeInsets.only(left: 10, top: 10),
+                      child: TextField(
+                        controller: PasswordController,
+                        minLines: 1,
+                        maxLines: 10,
+                        maxLengthEnforced: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Contraseña',
+                          hintText: "Ingresa tu contraseña",
+                        ),
+                      ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 70, right: 70, top: 10),
                     child:Container(
                       margin: const EdgeInsets.all(10.0),
                       width: 260.0,
                       height: 50.0,
-                      child: RaisedButton(
-                          onPressed: (){
-                            signUp( NameController.text, LastNameController.text,
-                            TelephoneController.text, AddressController.text,
-                            CityController.text, EmailController.text, PasswordController.text);
-                          },
-                          color: const Color(0xffe47c6e),
-                          child: Text("Registrar", style: TextStyle(color: Colors.white)),
-                          shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
-                      ),
-                    ),
-                  )
-                ],
-              ),
+                     child:
+                     RaisedButton(
+                         onPressed: (){
+                           signUp(context, NameController.text, LastNameController.text, TelephoneController.text,
+                               AddressController.text, CityController.text, EmailController.text, PasswordController.text);
+                         },
+                         color: const Color(0xffe47c6e),
+                         child: Text("Registrar", style: TextStyle(color: Colors.white)),
+                         shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+                     ),
+                    )
+                  ),
+                ),Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 80, right: 80, top: 10),
+                    child:Container(
+                      margin: const EdgeInsets.all(10.0),
+                      width: 260.0,
+                      height: 50.0,
+                     child:
+                     PageLink(
+                       links: [
+                         PageLinkInfo(
+                           transition: LinkTransition.Fade,
+                           ease: Curves.easeOut,
+                           duration: 0.3,
+                           pageBuilder: () => Login(),
+                         ),
+                       ],
+                       child: Text(
+                         'Ya tengo cuenta: Iniciar Sesión',
+                         style: TextStyle(
+                           fontFamily: 'Segoe UI',
+                           fontSize: 15,
+                           color: const Color(0xba707070),
+                         ),
+                         textAlign: TextAlign.left,
+                       ),
+                     ),
+                    )
+                  ),
+                )
+              ],
             ),
-          ),
-          Transform.translate(
-            offset: Offset(0.0, 736.0),
-            child: SvgPicture.string(
-              _svg_hn4edt,
-              allowDrawingOutsideViewBox: true,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
-  signUp(String name, lastName, telephone, address, city, email, password) async {
-     await http.post("http://192.168.1.77/LAINNEc/Add_User.php",
-        body: jsonEncode(<String, String>
-        {
-          "nombre": name,
-          "apellido": lastName,
-          "telefono": telephone,
-          "direccion": address,
-          "ciudad": city,
-          "correo": email,
-          "contrasena": password
-        }
-        ));
+          )
+        ],
+      )
+    );
+
+
+  }
+  signUp(BuildContext context , String name, lastName, telephone, address, city, email, password) async {
+
+    var JSON = jsonEncode(<String, dynamic>
+    {
+      "Name": name,
+      "LastName": lastName,
+      "Telephone": telephone,
+      "Address": address,
+      "City": city,
+      "Mail": email,
+      "Password": password
+    }
+    );
+    var response = await http.post("http://192.168.1.77/LAINNE/index.php/USER",body: JSON);
+    var jsonResponse = json.decode(response.body);
+    if(jsonResponse == "DB query Error"){
+
+      print("El usuario ya existe");
+    }else{
+      if(jsonResponse["status_code_header"] == "HTTP/1.1 201 Created"){
+      Navigator.pop(context);
+    }
+    else if(jsonResponse["status_code_header"] == "HTTP/1.1 422 Unprocessable Entity"){
+      print("Llena todo porfa papu");
+    }
+    else{
+      print(jsonResponse);
+    }
+    }
   }
 }
 

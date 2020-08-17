@@ -54,42 +54,52 @@ class _LoginPageState extends State<Login> {
                 child:
                 Column(
                   children: <Widget>[
-                    TextField(
-                      controller: emailController,
-                      autocorrect: true,
-                      decoration: InputDecoration(
-                        hintText: 'Correo: ',
-                        hintStyle: TextStyle(color: Colors.grey),
-                        filled: true,
-                        fillColor: Colors.white70,
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(50)),
-                          borderSide: BorderSide(color: Colors.grey, width: 1),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                          borderSide: BorderSide(color: Colors.pink),
-                        ),
+                    Container(
+                      child:Padding(
+                          padding: EdgeInsets.only(top: 30, left: 10, right: 10),
+                          child:TextField(
+                            controller: emailController,
+                            autocorrect: true,
+                            decoration: InputDecoration(
+                              hintText: 'Correo: ',
+                              hintStyle: TextStyle(color: Colors.grey),
+                              filled: true,
+                              fillColor: Colors.white70,
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(50)),
+                                borderSide: BorderSide(color: Colors.grey, width: 1),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                                borderSide: BorderSide(color: Colors.pink),
+                              ),
+                            ),
+                          ),
                       ),
                     ),
-                    TextField(
-                      controller: passwordController,
-                      autocorrect: true,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        hintText: 'Contraseña: ',
-                        hintStyle: TextStyle(color: Colors.grey),
-                        filled: true,
-                        fillColor: Colors.white70,
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(50)),
-                          borderSide: BorderSide(color: Colors.grey, width: 1),
+                    Container(
+                      child:Padding(
+                        padding: EdgeInsets.only(top: 30, left: 10, right: 10),
+                        child:TextField(
+                          controller: passwordController,
+                          autocorrect: true,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            hintText: 'Contraseña: ',
+                            hintStyle: TextStyle(color: Colors.grey),
+                            filled: true,
+                            fillColor: Colors.white70,
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(50)),
+                              borderSide: BorderSide(color: Colors.grey, width: 1),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                              borderSide: BorderSide(color: Colors.pink),
+                            ),
+                          ),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                          borderSide: BorderSide(color: Colors.pink),
-                        ),
-                      ),
+                      )
                     ),
                   ],
                 )
@@ -189,12 +199,12 @@ class _LoginPageState extends State<Login> {
             ),
           ),
           Transform.translate(
-              offset: Offset(173.0, 197.0),
+              offset: Offset(130.0, 180.0),
               child:
-              Text('Login',
+              Text('𝓛𝓐𝓘𝓝𝓝𝓔',
                 style: TextStyle(
                   fontFamily: 'Segoe UI',
-                  fontSize: 15,
+                  fontSize: 30,
                   color: Colors.white,
                 ),
               )
@@ -207,15 +217,22 @@ class _LoginPageState extends State<Login> {
 //  Functions part
   signIn(String email, password) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var response = await http.post("http://192.168.1.77/ws-p1/API_Login.php",
+    var response = await http.post("http://192.168.1.77/LAINNE/Login.php",
         body: jsonEncode(<String, String> {'email': email, 'password': password}));
     var jsonResponse = json.decode(response.body);
-    print(jsonResponse['success']);
     if(jsonResponse['success'] == 1){
       sharedPreferences.setString("token", jsonResponse['token']);
+      sharedPreferences.setString("Id", jsonResponse['id']);
       Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => MyHomePage()), (Route<dynamic> route) => false);
     }else{
-      print(jsonResponse);
+      showDialog(context: context,
+      builder: (_) => AlertDialog(
+        title: Text("Auth Error"),
+        content: Text("Usuario o contraseña icorrecta"),
+      ),
+        barrierDismissible: false
+      );
+    print("error auth");
     }
   }
 }

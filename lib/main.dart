@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Navigator.pop(context);
                     setState(() {
                       appBarTitle = "Perfil";
-                      initialWidget = Perfil();
+                      initialWidget = PerfilUsuario();
                     });
                   }
               ),

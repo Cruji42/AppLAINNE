@@ -15,7 +15,7 @@ class _CreadorPastelState extends State<CreadorPastel2> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      appBar: AppBar(title: Text("Postre Y"), backgroundColor: Colors.pink[200],),
+      appBar: AppBar(title: Text("Cake Maker"), backgroundColor: Colors.pink[200],),
       body: SingleChildScrollView(
         child: Container(
           child: Column(
@@ -34,7 +34,7 @@ class _CreadorPastelState extends State<CreadorPastel2> {
                             DateTime(1901),
                       lastDate:  DateTime.now().add( Duration(days: 30)),
                     ).then((date) {
-                      String formattedDate = formatDate(date, [dd, '/', mm, '/', yyyy]);
+                      String formattedDate = formatDate(date, [yyyy, '/', mm, '/', dd]);
                       selectedDate = formattedDate;
                       deliveryDateController.text = selectedDate;
                     });
@@ -45,7 +45,7 @@ class _CreadorPastelState extends State<CreadorPastel2> {
                   ),
                 ),
               ),
-              Container(
+            /*  Container(
                 padding: EdgeInsets.only(top: 30, left: 20, right: 20),
                 child: TextField(
                   decoration: InputDecoration(
@@ -54,8 +54,8 @@ class _CreadorPastelState extends State<CreadorPastel2> {
                     hintText: "Feliz Cumpleaños, Felicidades, etc..."
                   ),
                 ),
-              ),
-              Container(
+              ),*/
+         /*     Container(
                 padding: EdgeInsets.only(top: 30, left: 20, right: 20),
                 child: TextField(
                   decoration: InputDecoration(
@@ -64,7 +64,7 @@ class _CreadorPastelState extends State<CreadorPastel2> {
                     hintText: "Flor, unicornio, etc...",
                   ),
                 ),
-              ),
+              ),*/
               Container(
                 height: 200,
                 padding: EdgeInsets.only(top: 30, left: 20, right: 20),
@@ -74,8 +74,8 @@ class _CreadorPastelState extends State<CreadorPastel2> {
                   maxLengthEnforced: true,
                   decoration: InputDecoration(     
                     border: OutlineInputBorder(),
-                    labelText: 'Detalles Extra',
-                    hintText: "Información adicional acerca de tu pastel.",
+                    labelText: 'Detalles',
+                    hintText: "¿Cómo lo decoramos?",
                   ),
                 ),
               ),
@@ -109,9 +109,14 @@ class _CreadorPastelState extends State<CreadorPastel2> {
     DateTime picked = await showDatePicker(
         context: context,
         initialDate: new DateTime.now(),
-        firstDate: new DateTime(2016),
-        lastDate: new DateTime(2019)
+        firstDate: new DateTime(2019),
+        lastDate: new DateTime(2020)
     );
     if(picked != null) setState(() => _value = picked.toString());
+  }
+
+  makeOrder (String sabor){
+
+
   }
 }

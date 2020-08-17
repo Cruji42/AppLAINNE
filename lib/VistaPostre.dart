@@ -1,26 +1,34 @@
 import 'package:flutter/material.dart';
 import 'CreadorPastel.dart';
+import 'models/Postre.dart';
 
 class VistaPostre extends StatefulWidget {
+  final Postre postre;
+  VistaPostre({Key key, @required this.postre}) : super(key: key);
+  @override
+  void initState() {
+  print('data fetched: ' + this.postre.nombre);
+  }
   @override
   _VistaPostreState createState() => _VistaPostreState();
 }
 
 class _VistaPostreState extends State<VistaPostre> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Postre Y"), backgroundColor: Colors.pink[200],),
+        appBar: AppBar(title: Text("Pastel"), backgroundColor: Colors.pink[200],),
         body: Column(
           children: <Widget>[
             Container(
                 height: 580,
                 width: MediaQuery.of(context).size.width,
                 child: Card(
-                  child: Column(
+                  child: ListView(
                     children: <Widget>[
                       Image.network(
-                        "https://www.bakedbyanintrovert.com/wp-content/uploads/2018/05/Birthday-Cake-Recipe-Image-735x735.jpg",
+                        this.widget.postre.imagen,
                         fit: BoxFit.cover,
                         height: 350,
                         width: MediaQuery.of(context).size.width,
@@ -28,7 +36,7 @@ class _VistaPostreState extends State<VistaPostre> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Padding(
-                          child: Text("Pastel Y", style: TextStyle(fontSize: 20)),
+                          child: Text(this.widget.postre.nombre, style: TextStyle(fontSize: 20)),
                           padding: EdgeInsets.all(15),
                         ),
                       ),
@@ -36,8 +44,16 @@ class _VistaPostreState extends State<VistaPostre> {
                         padding: EdgeInsets.only(left:10, right:10),
                         child: SizedBox(
                           width: 350,
-                          child: Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare, nisl ut interdum tincidunt, tortor nulla varius justo, eget maximus eros dui vitae sapien. Praesent vitae nulla iaculis, tincidunt risus id, hendrerit nibh. Integer sed orci sed nisl gravida tempor.",
+                          child: Text(this.widget.postre.descripcion,
                             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400, color: Colors.black),),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left:10, right:10, top: 30),
+                        child: SizedBox(
+                          width: 350,
+                          child: Text('Precio base: \$ ' + this.widget.postre.precioBase,
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400, color: Colors.pink),),
                         ),
                       )
                     ],
