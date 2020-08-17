@@ -266,7 +266,8 @@ Crear(BuildContext context, String tamano, sabor, relleno, extra, detalle, fecha
   var jsonResponse = json.decode(response.body);
   print(jsonResponse["status_code_header"]);
   if(jsonResponse["status_code_header"] == "HTTP/1.1 201 Created"){
- Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Menu()), (Route<dynamic> route) => false);
+    Navigator.pop(context);
+// Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Menu()), (Route<dynamic> route) => false);
   }else{
     print(jsonResponse);
   }

@@ -128,7 +128,7 @@ class _LoginPageState extends State<Login> {
                     height: 50.0,
                     child: RaisedButton(
                         onPressed: (){
-                          signIn( emailController.text, passwordController.text);
+                          signIn(context, emailController.text, passwordController.text);
                         },
                         color: const Color(0xffe47c6e),
                         child: Text("Login", style: TextStyle(color: Colors.white)),
@@ -215,24 +215,51 @@ class _LoginPageState extends State<Login> {
   }
 
 //  Functions part
-  signIn(String email, password) async {
+  signIn(BuildContext context, String email, password) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var response = await http.post("http://192.168.1.77/LAINNE/Login.php",
         body: jsonEncode(<String, String> {'email': email, 'password': password}));
     var jsonResponse = json.decode(response.body);
-    if(jsonResponse['success'] == 1){
+    print(jsonResponse);
+    if(jsonResponse == "Llena todos los campos" ){
+      _showMyDialog(context, "Faltan datos", "Por favor llena todos los campos");
+    }else if  (jsonResponse == "Error de contraseña"){
+      _showMyDialog(context, "Error contraseña", "Contraseña equivocada");
+    }else if (jsonResponse == "Usuario incorrecto"){
+      _showMyDialog(context, "Error correo", "El correo no existe");
+    }else if(jsonResponse['success'] == 1){
       sharedPreferences.setString("token", jsonResponse['token']);
       sharedPreferences.setString("Id", jsonResponse['id']);
       Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => MyHomePage()), (Route<dynamic> route) => false);
     }else{
-      showDialog(context: context,
-      builder: (_) => AlertDialog(
-        title: Text("Auth Error"),
-        content: Text("Usuario o contraseña icorrecta"),
-      ),
-        barrierDismissible: false
-      );
-    print("error auth");
+      print(jsonResponse);
     }
+  }
+
+  Future<void> _showMyDialog(BuildContext context, String titulo, mensaje) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(titulo),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(mensaje),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

@@ -66,7 +66,7 @@ class Registro extends StatelessWidget {
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Apellido',
-                          hintText: "Ingresa tu nombre",
+                          hintText: "Ingresa tu apellido",
                         ),
                       ),
                   ),
@@ -76,13 +76,15 @@ class Registro extends StatelessWidget {
                       padding: EdgeInsets.only(left: 10, top: 10),
                       child: TextField(
                         controller: TelephoneController,
-                        minLines: 1,
-                        maxLines: 10,
+                        /*minLines: 1,
+                        maxLines: 10,*/
+                        keyboardType: TextInputType.number,
                         maxLengthEnforced: true,
+                        maxLength: 10,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Telefono',
-                          hintText: "Ingresa tu nombre",
+                          hintText: "Ingresa tu telefono",
                         ),
                       ),
                   ),
@@ -98,7 +100,7 @@ class Registro extends StatelessWidget {
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Dirección',
-                          hintText: "Ingresa tu nombre",
+                          hintText: "Ingresa tu dirección",
                         ),
                       ),
                   ),
@@ -114,7 +116,7 @@ class Registro extends StatelessWidget {
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Ciudad',
-                          hintText: "Ingresa tu nombre",
+                          hintText: "Ingresa tu ciudad",
                         ),
                       ),
                   ),
@@ -130,7 +132,7 @@ class Registro extends StatelessWidget {
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Correo',
-                          hintText: "Ingresa tu nombre",
+                          hintText: "Ingresa tu correo",
                         ),
                       ),
                   ),
@@ -141,8 +143,8 @@ class Registro extends StatelessWidget {
                       padding: EdgeInsets.only(left: 10, top: 10),
                       child: TextField(
                         controller: PasswordController,
-                        minLines: 1,
-                        maxLines: 10,
+                        autocorrect: true,
+                        obscureText: true,
                         maxLengthEnforced: true,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
@@ -229,19 +231,47 @@ class Registro extends StatelessWidget {
     var response = await http.post("http://192.168.1.77/LAINNE/index.php/USER",body: JSON);
     var jsonResponse = json.decode(response.body);
     if(jsonResponse == "DB query Error"){
-
+      _showMyDialog(context, "Email Error", "Ya existe un usuario con este correo");
       print("El usuario ya existe");
     }else{
       if(jsonResponse["status_code_header"] == "HTTP/1.1 201 Created"){
       Navigator.pop(context);
     }
     else if(jsonResponse["status_code_header"] == "HTTP/1.1 422 Unprocessable Entity"){
+        _showMyDialog(context, "Faltan datos", "Por favor ingresa todos los datos");
       print("Llena todo porfa papu");
     }
     else{
       print(jsonResponse);
     }
     }
+  }
+
+  Future<void> _showMyDialog(BuildContext context, String titulo, mensaje) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(titulo),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(mensaje),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 
